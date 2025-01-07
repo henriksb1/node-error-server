@@ -8,7 +8,7 @@ const port = 3000;
 server.use(cors()); // Allow all origins
 server.use(express.json()); // Parse JSON bodies
 
-server.use((req: Request, res: Response, next: NextFunction) => {
+server.use((req: Request, _res: Response, next: NextFunction) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
@@ -34,11 +34,11 @@ const routes: { [path: string]: Route } = {
 Object.keys(routes).forEach((path) => {
   const { statusCode, response } = routes[path];
 
-  server.get(path, (req: Request, res: Response) => {
+  server.get(path, (_req: Request, res: Response) => {
     res.status(statusCode).json(response);
   });
 
-  server.post(path, (req: Request, res: Response) => {
+  server.post(path, (_req: Request, res: Response) => {
     res.status(statusCode).json(response);
   });
 });
